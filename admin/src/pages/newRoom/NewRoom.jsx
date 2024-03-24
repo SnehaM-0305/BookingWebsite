@@ -1,37 +1,10 @@
-import './newpage.scss';
+import './newroom.scss';
 import { Navbar } from '../../components/navbar/Navbar';
 import { Sidebar } from '../../components/sidebar/Sidebar';
 import DriveFolderUploadOutlined from "@mui/icons-material/DriveFolderUploadOutlined"
 import { useState } from 'react';
-import axios from "axios";
-export const Newpage = ({inputs,title}) => {
+export const NewRoom = ({inputs,title}) => {
   const [file,setfile] = useState("") ;
-  const [info,setInfo] = useState({});
-  const handleChange=(e)=>{
-setInfo(prev=>({...prev,[e.target.id]:e.target.value}))
-  }
-
-  const handleClick=async (e)=>{
-e.preventDefault() ; 
-const data = new FormData()
-data.append("file" , file)
-data.append("upload_preset" , "upload")
-try{
-const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/dstgi1llo/image/upload",data)
-const {url} = uploadRes.data ; 
-const newUser = {
-  ...info,
-  img:url
-} ;
-
-await axios.post("/auth/register",newUser)
-
-}
-catch(err){
-  console.log(err);
-}
-
-  }
   return (
     <div className='new'>
       <Sidebar />
@@ -54,13 +27,13 @@ catch(err){
 
 <div className="formInput" key={input.id}>
 <label>{input.label}</label>
-<input onChange={handleChange} type={input.type} placeholder={input.placeholder} id={input.id}></input>
+<input type={input.type} placeholder={input.placeholder}></input>
 </div>
               ))}
              
              
            
-                  <button onClick={handleClick}>Submit</button>
+                  <button>Submit</button>
                
               
             </form>
